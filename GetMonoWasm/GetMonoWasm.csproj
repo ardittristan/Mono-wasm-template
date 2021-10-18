@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+    <StartupObject>GetMonoWasm.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
+    <PackageReference Include="Uno.Wasm.MonoRuntime" Version="1.1.0-dynalink.1" GeneratePathProperty="true" ExcludeAssets="all" />
+  </ItemGroup>
+
+  <Target Name="RunExe" AfterTargets="Build" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCpu' ">
+    <Exec Command="$(OutputPath)GetMonoWasm.exe -z $(PkgUno_Wasm_MonoRuntime)/build/runtime" />
+  </Target>
+</Project>
